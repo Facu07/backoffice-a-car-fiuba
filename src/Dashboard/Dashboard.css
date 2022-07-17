@@ -1,0 +1,46 @@
+.dashboard-container {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+.top-panel {
+    background-color: #1D3557;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 10vh;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.side-panel{
+    background-color: rgb(119, 160, 221);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 12%;
+}
+
+.chat-panel{
+    height: 20%;
+    width: 20%;
+    position: sticky;
+    bottom: 3;
+    z-index: 999;
+}
+
+.container {
+    background-color: rgb(119, 160, 221);
+    display: flex;
+    flex: 4;
+}
+
+.others {
+    flex: 4;
+    background-color: #fafafa;
+}
