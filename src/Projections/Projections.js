@@ -10,33 +10,37 @@ import Button from '@mui/material/Button';
 function Projections() {
 
   const [ rentals, setRentalsData ] = useState([]);
+  const [ total, setTotal ] = useState(0);
   const fetchData = useCallback(async () => {    
     db.collection('rentals').get()
     .then((querySnapshot) => {
       const tempStoresData = [];
       querySnapshot.forEach((doc, i) => {
-        console.log(doc.data())
         var tempData = { 
           id: doc.id, 
           status: doc.data().status, 
           multiplier: 0, 
-          gmv: 7000000, 
-          pricePerHour: 7000,
+          gmv: doc.data().total, 
+          pricePerHour: doc.data().pricePerHour,
           estimation: 0
         };
         tempStoresData.push({id: doc.id, ...tempData});
       });
         setRentalsData(tempStoresData);
     });
-    console.log(rentals)
   }, [])
 
   const handleMultiply = (row) => {
-    console.log(row.multiplier * row.pricePerHour)
     row.estimation = row.multiplier * row.pricePerHour;
+    setTotal(total+row.estimation);
   }
 
   const columns = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      width: 250,
+    },
     {
       field: 'pricePerHour',
       headerName: 'Price per Hour',
@@ -88,14 +92,16 @@ function Projections() {
       />
     </Box>
       <Grid container>
-        <Grid item xs={3}> 
+        <Grid item xs={3}>
+          <Paper>{total}</Paper>
           <Paper>Total</Paper>
         </Grid>
         <Grid item xs={3}> 
           <Paper></Paper>
         </Grid>
-        <Grid item xs={3}> 
-          <Paper>Sumatoria</Paper>
+        <Grid item xs={3}>
+          <Paper>{Math.floor(total * 0.07)}</Paper>
+          <Paper>Revenue</Paper>
         </Grid> 
       </Grid>
       </Box>

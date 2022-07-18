@@ -21,8 +21,8 @@ const Home = () => {
         var tempData = { 
           id: doc.id, 
           status: doc.data().status, 
-          gmv: 7000000, 
-          pricePerHour: 7000,
+          gmv: doc.data().total, 
+          pricePerHour: doc.data().pricePerHour,
         };
         if(tempData.status === 'FINISHED'){
           sum += tempData.gmv;
@@ -33,7 +33,7 @@ const Home = () => {
       setRentalsData(tempStoresData);
     });
     console.log(rentals)
-  }, [])
+  }, [db])
 
   const columns = [
     {
@@ -120,7 +120,7 @@ const handleStatus = (status) => {
           <Paper></Paper>
         </Grid>
         <Grid item xs={3}>
-          <Paper>{total - 70000}</Paper>
+          <Paper>{Math.floor(total * 0.07)}</Paper>
           <Paper>Revenue</Paper>
         </Grid> 
       </Grid>
