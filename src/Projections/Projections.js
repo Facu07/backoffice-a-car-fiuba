@@ -20,7 +20,7 @@ function Projections() {
           id: doc.id, 
           status: doc.data().status, 
           multiplier: 0, 
-          gmv: doc.data().total, 
+          total: doc.data().total, 
           pricePerHour: doc.data().pricePerHour,
           estimation: 0
         };
@@ -31,7 +31,7 @@ function Projections() {
   }, [])
 
   const handleMultiply = (row) => {
-    row.estimation = row.multiplier * row.pricePerHour;
+    row.estimation = row.multiplier * row.total;
     setTotal(total+row.estimation);
   }
 
@@ -42,9 +42,16 @@ function Projections() {
       width: 250,
     },
     {
-      field: 'pricePerHour',
-      headerName: 'Price per Hour',
+      field: 'total',
+      headerName: 'Total',
       width: 250,
+      renderCell: (params) => {
+        return (
+            <>
+              ${params.row.total}
+            </>
+        )
+    }
     },
     {
       field: 'multiplier',
@@ -70,6 +77,13 @@ function Projections() {
     field: 'estimation',
     headerName: 'Estimation',
     width: 250,
+    renderCell: (params) => {
+      return (
+          <>
+            ${params.row.estimation}
+          </>
+      )
+  }
   },
   ];
 
@@ -93,14 +107,14 @@ function Projections() {
     </Box>
       <Grid container>
         <Grid item xs={3}>
-          <Paper>{total}</Paper>
+          <Paper>${total}</Paper>
           <Paper>Total</Paper>
         </Grid>
         <Grid item xs={3}> 
           <Paper></Paper>
         </Grid>
         <Grid item xs={3}>
-          <Paper>{Math.floor(total * 0.07)}</Paper>
+          <Paper>${Math.floor(total * 0.07)}</Paper>
           <Paper>Revenue</Paper>
         </Grid> 
       </Grid>

@@ -59,12 +59,25 @@ const Home = () => {
       field: 'gmv',
       headerName: 'GMV',
       width: 250,
-
+      renderCell: (params) => {
+        return (
+            <>
+              ${params.row.gmv}
+            </>
+        )
+    }
     },
     {
       field: 'pricePerHour',
       headerName: 'Price per Hour',
       width: 250,
+      renderCell: (params) => {
+        return (
+            <>
+              ${params.row.pricePerHour}
+            </>
+        )
+    }
     },
   ];
 
@@ -113,14 +126,14 @@ const handleStatus = (status) => {
     </Box>
       <Grid container>
         <Grid item xs={3}>
-          <Paper>{total}</Paper>
+          <Paper>${total}</Paper>
           <Paper>Total</Paper>
         </Grid>
         <Grid item xs={3}> 
           <Paper></Paper>
         </Grid>
         <Grid item xs={3}>
-          <Paper>{Math.floor(total * 0.07)}</Paper>
+          <Paper>${Math.floor(total * 0.07)}</Paper>
           <Paper>Revenue</Paper>
         </Grid> 
       </Grid>
